@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const SearchBar = () => {
     const [input,setInput]=useState("");
@@ -15,6 +15,16 @@ const SearchBar = () => {
         e.preventDefault();
         fetchData(input);
     }
+
+    const getDefaults=async()=>{
+        const res=await axios.get("http://localhost:8080/products/all");
+        setSearchQ(res.data);
+    }
+
+    useEffect(()=>{
+        getDefaults();
+    },[])
+
     return (
         <div>
             <span>Search: 

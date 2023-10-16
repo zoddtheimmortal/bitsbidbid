@@ -17,7 +17,7 @@ export default function Login() {
     const user = await getUserInfo();
     dispatch(setUser(user));
     setLoading(false);
-    navigate("/dashboard");
+    navigate("/search");
   };
 
   return (

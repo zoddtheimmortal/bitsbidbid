@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import DashBoard from "./pages/DashBoard";
 import AuthLayout from "./layouts/AuthLayout";
+import ProductSearch from "./pages/ProductSearch";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"/search",
+    element: <ProductSearch/>
+  }
 ]);
 
 function App() {
