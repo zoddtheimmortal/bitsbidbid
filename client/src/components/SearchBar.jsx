@@ -32,8 +32,20 @@ const SearchBar = () => {
                 <input 
                 value={input}
                 onChange={(e)=>setInput(e.target.value)}
-                placeholder="Search Products" />
-                <button type="submit">Search</button>
+                placeholder="Search Products"
+                className="text-black"
+                 />
+                <button type="submit" className="
+                 bg-lime-300
+                 hover:bg-lime-700
+                 text-black
+                 my-2
+                 py-1
+                 px-4
+                 rounded-r-full
+                ">
+                    Search
+                </button>
                 </form>
             </span>
             <ul>{searchQ.map(item=><li key={item.uid}>
