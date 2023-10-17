@@ -38,7 +38,7 @@ export default function GoogleLogin({ onGoogleSignIn }) {
     };
   }, [onGoogleSignIn]);
 
-  return <div ref={googleButton}></div>;
+  return <div ref={googleButton} className="my-3"></div>;
 }
 GoogleLogin.propTypes = {
   onGoogleSignIn: PropTypes.any.isRequired,

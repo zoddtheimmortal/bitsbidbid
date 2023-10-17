@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/oauth2/login").permitAll()
-                .anyRequest().permitAll() //will change later pls change its important to change this!
+                .anyRequest().permitAll() //pls change its important to change this! -> for testing purpose only
                     .and()
                 .build();
     }
