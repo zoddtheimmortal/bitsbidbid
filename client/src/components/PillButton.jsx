@@ -1,8 +1,8 @@
 const PillButton = ({children,onClick}) => {
     return(
             <button onClick={onClick} className="
-             bg-lime-300
-             hover:bg-lime-700
+             bg-royal-green
+             hover:bg-lime-600
              text-black
              my-2
              p-2

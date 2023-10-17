@@ -32,6 +32,12 @@ export default function Login() {
       }}
     >
       <Logo style={"text-8xl"}/>
+      <div className="
+        text-xl
+        italic
+        text-royal-green
+        font-barlow
+      ">EAT,SLEEP,BID,REPEAT</div>
       {loading && <p>loading...</p>}
       <GoogleLogin onGoogleSignIn={onGoogleSignIn} text="Login" />
     </div>

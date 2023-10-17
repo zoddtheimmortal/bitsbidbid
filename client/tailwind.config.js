@@ -14,6 +14,7 @@ export default {
       fontFamily:{
         'graduate':['Graduate','serif'],
         'montez':['Montez','cursive'],
+        'barlow':['Barlow','sans-serif'],
       },
     },
   },
