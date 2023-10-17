@@ -8,3 +8,7 @@ body{
     background-color: rgb(2,7,18);
     color: white;
 }
+
+*{
+    padding-left: 0.1rem;
+}

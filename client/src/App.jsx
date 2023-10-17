@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import DashBoard from "./pages/DashBoard";
 import AuthLayout from "./layouts/AuthLayout";
 import ProductSearch from "./pages/ProductSearch";
+import Product from "./pages/Product";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path:"/search",
     element: <ProductSearch/>
+  },
+  {
+    path:"/product/:id",
+    element:<Product/>
   }
 ]);
 
