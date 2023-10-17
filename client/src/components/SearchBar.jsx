@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ProductPreview from "./ProductPreview";
 
 const SearchBar = () => {
     const [input,setInput]=useState("");
@@ -10,7 +11,6 @@ const SearchBar = () => {
 
     const fetchData=async(value)=>{
         const res=await axios.get(`http://localhost:8080/products/find?query=${value}`)
-        console.log(res.data);
         setSearchQ(res.data);
     }
 
@@ -55,15 +55,16 @@ const SearchBar = () => {
                 </button>
                 </form>
             </span>
-            <ul>{searchQ.map(item=><li 
-                key={item.uid}
-                onClick={()=>handleProduct(item.uid)}
-                >
-                <div>Name: {item.name}</div>
-                <div>Desc: {item.desc}</div>
-                <div>Price: {item.price}</div>
-            </li>)}
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {searchQ.map(item=>
+                    <ProductPreview
+                        name={item.name}
+                        maxBid={item.price}
+                        id={item.uid}
+                        desc={item.desc}
+                    />
+                )}
+            </div>
         </div>
       );
 }
