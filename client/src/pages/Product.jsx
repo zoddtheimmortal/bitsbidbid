@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
+import ProductBox from "../components/ProductBox";
 
 const Product = () => {
     const {id}=useParams();
     return (
         <div>
-            Hello {id}
+            <ProductBox id={id}/>
         </div>
     );
 }
