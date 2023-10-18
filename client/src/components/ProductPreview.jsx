@@ -18,7 +18,10 @@ const ProductPreview = ({name,maxBid,time,src,id,desc}) => {
                 <div className="text-2xl font-bold">{name}</div>
                 <div className="font-mono">Max Bid: {maxBid}</div>
                 <div className="font-mono text-sm">{desc}</div>
-                <PillButton children="View Auction" onClick={()=>handleClick(id)}/>
+                <PillButton children="View Auction" 
+                onClick={()=>handleClick(id)}
+                className={"bg-regal-blue border border-gray-600 text-gray-600 hover:text-gray-500"}
+                />
             </div>
         </div>
     );

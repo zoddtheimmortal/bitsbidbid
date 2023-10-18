@@ -1,14 +1,22 @@
-const PillButton = ({children,onClick}) => {
+import { twMerge } from "tailwind-merge";
+const PillButton = ({children,onClick,className}) => {
     return(
-            <button onClick={onClick} className="
-             bg-royal-green
-             hover:bg-lime-600
-             text-black
-             my-2
-             p-2
-             px-4
-             rounded-full
-            ">{children}
+            <button onClick={onClick} className={twMerge(`
+            rounded-full
+            bg-royal-green
+            border
+            border-transparent
+            m-1
+            px-3
+            py-3
+            disabled:cursor-not-allowed
+            disabled:opacity-50
+            text-neutral-800
+            font-semibold
+            hover:scale-105
+            hover:text-black
+            transition
+        `,className)}>{children}
             </button>
     )
 }
