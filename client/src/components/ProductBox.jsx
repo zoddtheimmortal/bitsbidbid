@@ -26,6 +26,7 @@ const ProductBox = ({id}) => {
             <div>{prodData.name}</div>
             <div>{prodData.description}</div>
             <div>{prodData.price}</div>
+            <div>Click to Bid</div>
             <div>
                 <img src={
                 prodData.imgSrc
