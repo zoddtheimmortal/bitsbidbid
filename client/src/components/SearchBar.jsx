@@ -61,7 +61,7 @@ const SearchBar = () => {
                         name={item.name}
                         maxBid={item.price}
                         id={item.uid}
-                        desc={item.desc}
+                        desc={item.description}
                     />
                 )}
             </div>
