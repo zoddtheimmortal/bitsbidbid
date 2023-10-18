@@ -24,7 +24,7 @@ const ProductBox = ({id}) => {
     return (
         <div onClick={handleClick}>
             <div>{prodData.name}</div>
-            <div>{prodData.desc}</div>
+            <div>{prodData.description}</div>
             <div>{prodData.price}</div>
             <div>
                 <img src={
