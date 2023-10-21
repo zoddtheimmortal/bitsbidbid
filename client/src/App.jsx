@@ -4,6 +4,7 @@ import DashBoard from "./pages/DashBoard";
 import AuthLayout from "./layouts/AuthLayout";
 import ProductSearch from "./pages/ProductSearch";
 import Product from "./pages/Product";
+import AddProduct from "./pages/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
   {
     path:"/product/:id",
     element:<Product/>
-  }
+  },
+  {
+    path:"/product/add",
+    element:<AddProduct/>
+  },
 ]);
 
 function App() {

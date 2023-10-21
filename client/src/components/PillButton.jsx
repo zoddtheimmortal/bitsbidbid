@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-const PillButton = ({children,onClick,className}) => {
+const PillButton = ({children,onClick,className,type}) => {
     return(
             <button onClick={onClick} className={twMerge(`
             rounded-full
@@ -16,7 +16,7 @@ const PillButton = ({children,onClick,className}) => {
             hover:scale-105
             hover:text-black
             transition
-        `,className)}>{children}
+        `,className)} type={type}>{children}
             </button>
     )
 }
