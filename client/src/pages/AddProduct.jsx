@@ -2,25 +2,42 @@ import axios from "axios";
 import { useState } from "react";
 import Logo from "../components/Logo";
 import PillButton from "../components/PillButton";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
     const [name,setName]=useState("");
-    const [desc,setDesc]=useState("");
-    const [img,setImg]=useState("");
+    const [description,setDescription]=useState("");
+    const [imgSrc,setImgSrc]=useState("");
     const [price,setPrice]=useState("");
+
+    const navigate=useNavigate();
 
     const handleSubmit=(e)=>{
         e.preventDefault();
         postData();
     }
 
-    const postData=()=>{
-        axios.post("http://localhost:8080/products/",{
-            name:{name},
-            price:{price},
-            maxBid:0,
-            description:{desc}
-        })
+    const handleClick=()=>{
+        navigate("/search");
+    }
+
+    const postData=async()=>{
+        try{
+            const data={
+            name,
+            description,
+            price,
+            imgSrc,
+            maxBid:0
+            }
+            // console.log(data);
+            const config = { 'content-type': 'application/json' };
+            const res=await axios.post("http://localhost:8080/products/",data,config);
+            console.log(res.data)
+            alert(`Product ${name} Added`);
+        }catch(e){
+            console.error(e);
+        }
     }
 
     return ( 
@@ -30,8 +47,8 @@ const AddProduct = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                         <input
-                        value={img}
-                        onChange={(e)=>setImg(e.target.value)}
+                        value={imgSrc}
+                        onChange={(e)=>setImgSrc(e.target.value)}
                         type="text"
                         placeholder="Enter Product Image Link"
                         className="
@@ -64,8 +81,8 @@ const AddProduct = () => {
                         />
                         <input type="text" 
                         name="" id="" placeholder="Enter Product Description" 
-                        value={desc}
-                        onChange={(e)=>setDesc(e.target.value)}
+                        value={description}
+                        onChange={(e)=>setDescription(e.target.value)}
                         className="
                         w-full
                         p-2
@@ -131,6 +148,7 @@ const AddProduct = () => {
                     </div>
                 </div>
             </form>
+            <PillButton onClick={handleClick}>Products</PillButton>
         </div>
      );
 }

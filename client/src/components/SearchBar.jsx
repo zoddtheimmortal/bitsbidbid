@@ -76,6 +76,7 @@ const SearchBar = () => {
                         maxBid={item.price}
                         id={item.uid}
                         desc={item.description}
+                        src={item.imgSrc}
                     />
                 )}
             </div>
