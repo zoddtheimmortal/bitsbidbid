@@ -10,12 +10,17 @@ const ProductSearch = () => {
         navigate("/dashboard")
     }
 
+    const handleAdd=()=>{
+        navigate("/product/add")
+    }
+
     return(
         <div>
             <span>
                 <Logo/>
                 <SearchBar/>
                 <PillButton onClick={handleClick} children="Dashboard"/>
+                <PillButton onClick={handleAdd}>Add Product</PillButton>
             </span>
         </div>
     )
