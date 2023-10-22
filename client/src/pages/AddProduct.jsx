@@ -5,10 +5,13 @@ import PillButton from "../components/PillButton";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
-    const [name,setName]=useState("");
-    const [description,setDescription]=useState("");
-    const [imgSrc,setImgSrc]=useState("");
-    const [price,setPrice]=useState("");
+    const [formData,setFormData]=useState({
+        name:"",
+        description:"",
+        maxBid:"",
+        imgSrc:"",
+        price:0
+    })
 
     const navigate=useNavigate();
 
@@ -23,18 +26,10 @@ const AddProduct = () => {
 
     const postData=async()=>{
         try{
-            const data={
-            name,
-            description,
-            price,
-            imgSrc,
-            maxBid:0
-            }
-            // console.log(data);
             const config = { 'content-type': 'application/json' };
-            const res=await axios.post("http://localhost:8080/products/",data,config);
+            const res=await axios.post("http://localhost:8080/products/",formData,config);
             console.log(res.data)
-            alert(`Product ${name} Added`);
+            alert(`Product ${formData.name} Added`);
         }catch(e){
             console.error(e);
         }
@@ -47,8 +42,7 @@ const AddProduct = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                         <input
-                        value={imgSrc}
-                        onChange={(e)=>setImgSrc(e.target.value)}
+                        onChange={(e)=>setFormData({...formData,imgSrc:e.target.value})}
                         type="text"
                         placeholder="Enter Product Image Link"
                         className="
@@ -66,8 +60,7 @@ const AddProduct = () => {
                     <div className="grid grid-rows-1 gap-2 mr-4">
                         <input type="text" 
                         name="" id="" placeholder="Enter Product Title"
-                        value={name}
-                        onChange={(e)=>setName(e.target.value)}
+                        onChange={(e)=>setFormData({...formData,name:e.target.value})}
                         className="
                             w-full
                             p-2
@@ -81,8 +74,7 @@ const AddProduct = () => {
                         />
                         <input type="text" 
                         name="" id="" placeholder="Enter Product Description" 
-                        value={description}
-                        onChange={(e)=>setDescription(e.target.value)}
+                        onChange={(e)=>setFormData({...formData,description:e.target.value})}
                         className="
                         w-full
                         p-2
@@ -128,8 +120,7 @@ const AddProduct = () => {
                                 <div>
                                 <input type="text" 
                                 placeholder="Enter Starting Bid"
-                                value={price}
-                                onChange={(e)=>setPrice(e.target.value)}
+                                onChange={(e)=>setFormData({...formData,price:e.target.value})}
                                 className="
                                 w-full
                                 p-2
