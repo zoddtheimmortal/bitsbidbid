@@ -10,7 +10,7 @@ const ProductPreview = ({name,maxBid,time,src,id,desc}) => {
     }
 
     return (
-        <div className="grid grid-cols-2 content-center bg-con-blue rounded-3xl p-6 gap-1">
+        <div className="grid grid-cols-2 border border-gray-600 content-center bg-con-blue rounded-3xl p-6 gap-1">
             <div className=""><img 
             src={src?src:"https://www.notebookcheck.net/fileadmin/Notebooks/Apple/MacBook_Pro_14_2023_M2_Pro/AKA8518.jpg"}
              className="pr-2 rounded-xl" />

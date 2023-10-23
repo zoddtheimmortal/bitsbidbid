@@ -41,7 +41,7 @@ const ProductBox = ({id}) => {
                     <div className="bg-con-blue grid gap-1 rounded-xl p-4">
                         <div className="text-2xl font-bold font-mono">Time Left:</div>
                         <Timer 
-                        deadline="2023-12-31T23:59:59"
+                        deadline={prodData.dateCreated?prodData.dateCreated:"2023-12-31T23:40:48"}
                         className="rounded-xl bg-royal-green"
                         />
                         <div className="font-mono">

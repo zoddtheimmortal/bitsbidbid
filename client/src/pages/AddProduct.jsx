@@ -13,6 +13,7 @@ const AddProduct = () => {
         price:0
     })
 
+
     const navigate=useNavigate();
 
     const handleSubmit=(e)=>{
