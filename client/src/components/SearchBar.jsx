@@ -72,12 +72,14 @@ const SearchBar = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {searchQ.map(item=>
                     <ProductPreview
-                        key={item.uid}
-                        name={item.name}
-                        maxBid={item.price}
-                        id={item.uid}
-                        desc={item.description}
-                        src={item.imgSrc}
+                    key={item.uid}
+                    name={item.name}
+                    maxBid={item.price}
+                    id={item.uid}
+                    desc={item.description}
+                    src={item.imgSrc}
+                    dateCreated={item.dateCreated}
+                    display={item.display}
                     />
                 )}
             </div>
