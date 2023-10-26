@@ -4,14 +4,23 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Timer from "../hooks/Timer";
 import Logo from "./Logo";
+import { useSelector } from "react-redux";
 
 const ProductBox = ({id}) => {
     const navigate=useNavigate();
     const [prodData,setProdData]=useState([]);
+    const user=useSelector((state) => state.user.user);
+    const [userWithId,setUserWithID]=useState([]);
 
     const fetchProductData=async()=>{
         const res=await axios.get(`http://localhost:8080/products/${id}`);
         setProdData(res.data);
+    }
+
+    const fetchUserData=async()=>{
+        const email=user.email;
+        const res=await axios.get(`http://localhost:8080/oauth2/user/find/${email}`);
+        setUserWithID(res.data);
     }
 
     // const setDisabled=async()=>{
@@ -25,6 +34,7 @@ const ProductBox = ({id}) => {
 
     useEffect(()=>{
         fetchProductData();
+        fetchUserData();
     },[]);
 
     const handleSubmit=()=>{
@@ -88,6 +98,26 @@ const ProductBox = ({id}) => {
                                 >
                                     Place Bid
                                 </button>
+                                {(prodData.creationId==userWithId.id)?(
+                                    <button type="submit"
+                                    className="rounded-2xl
+                                    bg-royal-green
+                                    border
+                                    border-transparent
+                                    m-1
+                                    px-6
+                                    py-2
+                                    disabled:cursor-not-allowed
+                                    disabled:opacity-50
+                                    text-neutral-800
+                                    font-semibold
+                                    hover:scale-105
+                                    hover:text-black
+                                    transition"
+                                    >
+                                        Delete Product
+                                    </button>
+                                ):null}
                             </form>
                         </div>
                     </div>
