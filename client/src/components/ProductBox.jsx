@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Timer from "../hooks/Timer";
-import Logo from "./Logo";
+import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 
 const ProductBox = ({id}) => {
@@ -44,7 +44,7 @@ const ProductBox = ({id}) => {
 
     return (
         <div>
-            <Logo/>
+            <Navbar></Navbar>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 content-center items-center justify-items-start m-2">
                 <div>
                         <img src={

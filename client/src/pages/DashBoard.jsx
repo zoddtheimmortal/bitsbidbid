@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PillButton from "../components/PillButton";
-import Logo from "../components/Logo";
+import Navbar from "../components/Navbar";
 
 export default function DashBoard() {
 
@@ -16,16 +16,7 @@ export default function DashBoard() {
 
   return (
     <div>
-      <Logo/>
-      {/* <h1>DashBoard</h1>
-      <p>Welcome - {`${user.firstName} ${user.lastName?user.lastName:""}`}</p>
-      <div>
-        <img src={user.pictureUrl} alt="" className="
-        rounded-full
-        "/>
-        </div>
-      <p>user: {JSON.stringify(user)}</p>
-      <PillButton children="Products" onClick={handleClick}/> */}
+      <Navbar/>
       <div className="grid grid-cols-2 m-2 bg-con-blue content-center rounded-3xl p-5 border border-gray-400">
         <div>
           <img src={user.pictureUrl} alt=""

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const Logo = ({style}) => {
     const navigate=useNavigate();
 
-    const defaultStyle="text-4xl";
+    const defaultStyle="text-4xl pt-4";
 
     const handleClick=()=>{
         navigate("/");
