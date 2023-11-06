@@ -15,6 +15,7 @@ const ProductBox = ({id}) => {
     const fetchProductData=async()=>{
         const res=await axios.get(`http://localhost:8080/products/${id}`);
         setProdData(res.data);
+        console.log(res.data);
     }
 
     const fetchUserData=async()=>{
@@ -23,15 +24,6 @@ const ProductBox = ({id}) => {
         setUserWithID(res.data);
     }
 
-    // const setDisabled=async()=>{
-    //         prodData.display=true;
-    //         try{
-    //             const config = { 'content-type': 'application/json' };
-    //             const res=await axios.post("http://localhost:8080/products/",prodData,config);
-    //             console.log(res.data)
-    //         }catch(e){console.error(e)};
-    // }
-
     useEffect(()=>{
         fetchProductData();
         fetchUserData();
@@ -39,7 +31,6 @@ const ProductBox = ({id}) => {
 
     const handleSubmit=()=>{
         navigate("/search");
-        // setDisabled();
     }
 
     return (
@@ -63,7 +54,6 @@ const ProductBox = ({id}) => {
                         <Timer 
                         deadline={prodData.dateCreated?prodData.dateCreated:"2023-12-31T23:40:48"}
                         className="rounded-xl bg-royal-green"
-                        display={prodData.display}
                         />
                         <div className="font-mono">
                             <span className="font-bold">Bid End Date: </span>

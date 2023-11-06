@@ -46,7 +46,6 @@ export default function DashBoard() {
         </div>
       </div>
       </div>
-      <PillButton children="Products" onClick={handleClick}/>
     </div>
   );
 }

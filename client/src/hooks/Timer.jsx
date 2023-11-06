@@ -9,7 +9,7 @@ const HOUR=MINUTE*60;
 const DAY=HOUR*24;
 
 
-const Timer = ({ deadline = new Date().toString(), className,display}) => {
+const Timer = ({ deadline = new Date().toString(), className}) => {
     const parsedDeadline = useMemo(() => Date.parse(deadline), [deadline]);
     const [time, setTime] = useState(parsedDeadline - Date.now());
 

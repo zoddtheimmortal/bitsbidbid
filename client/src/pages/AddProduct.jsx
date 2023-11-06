@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import PillButton from "../components/PillButton";
-import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
     const [formData,setFormData]=useState({
@@ -13,16 +12,9 @@ const AddProduct = () => {
         price:0
     })
 
-
-    const navigate=useNavigate();
-
     const handleSubmit=(e)=>{
         e.preventDefault();
         postData();
-    }
-
-    const handleClick=()=>{
-        navigate("/search");
     }
 
     const postData=async()=>{
@@ -32,7 +24,7 @@ const AddProduct = () => {
             console.log(res.data)
             alert(`Product ${formData.name} Added`);
         }catch(e){
-            console.error(e);
+            console.log(e.response.data);
         }
     }
 
@@ -141,7 +133,6 @@ const AddProduct = () => {
                         </div>
                     </div>
                 </form>
-                <PillButton onClick={handleClick}>Products</PillButton>
             </div>
         </div>
      );

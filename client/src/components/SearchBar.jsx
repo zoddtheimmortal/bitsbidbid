@@ -2,15 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductPreview from "./ProductPreview";
+import ProductService from "../api/product.service";
 
 const SearchBar = () => {
     const [input,setInput]=useState("");
     const [searchQ,setSearchQ]=useState([]);
 
-    const navigate=useNavigate();
-
     const fetchData=async(value)=>{
-        const res=await axios.get(`http://localhost:8080/products/find?query=${value}`)
+        const res=await ProductService.searchProduct(value);
         setSearchQ(res.data);
     }
 
@@ -20,12 +19,8 @@ const SearchBar = () => {
     }
 
     const getDefaults=async()=>{
-        const res=await axios.get("http://localhost:8080/products/all");
-        setSearchQ(res.data);
-    }
-
-    const handleProduct=(id)=>{
-        navigate(`/product/${id}`);
+        const res=await ProductService.fetchAllProducts();
+        setSearchQ(test.data);
     }
 
     useEffect(()=>{

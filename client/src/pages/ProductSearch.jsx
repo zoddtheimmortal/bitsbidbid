@@ -20,8 +20,6 @@ const ProductSearch = () => {
             <span>
                 <Navbar/>
                 <SearchBar/>
-                <PillButton onClick={handleClick} children="Dashboard"/>
-                <PillButton onClick={handleAdd}>Add Product</PillButton>
             </span>
         </div>
     )
