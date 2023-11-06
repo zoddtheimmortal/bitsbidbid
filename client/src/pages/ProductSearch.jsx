@@ -2,6 +2,7 @@ import SearchBar from "../components/SearchBar";
 import { useNavigate } from "react-router-dom";
 import PillButton from "../components/PillButton";
 import Logo from "../components/Logo";
+import Navbar from "../components/Navbar";
 
 const ProductSearch = () => {
     const navigate=useNavigate();
@@ -17,7 +18,7 @@ const ProductSearch = () => {
     return(
         <div>
             <span>
-                <Logo/>
+                <Navbar/>
                 <SearchBar/>
                 <PillButton onClick={handleClick} children="Dashboard"/>
                 <PillButton onClick={handleAdd}>Add Product</PillButton>
