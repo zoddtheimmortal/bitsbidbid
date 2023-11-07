@@ -4,8 +4,7 @@ const API_URL="http://localhost:8080/products";
 
 const fetchProductData=async(id)=>{
     const res=await axios.get(API_URL+`/${id}`);
-    setProdData(res.data);
-    console.log(res.data);
+    return res;
 }
 
 const fetchAllProducts=async()=>{
@@ -17,10 +16,22 @@ const searchProduct=async(value)=>{
     return res;
 }
 
+const postData=async(formData)=>{
+    try{
+        const config = { 'content-type': 'application/json' };
+        const res=await axios.post("http://localhost:8080/products/",formData,config);
+        alert(`Product ${formData.name} Added`);
+        return res;
+    }catch(e){
+        console.error(e.response.data);
+    }
+}
+
 const ProductService = {
     fetchProductData,
     fetchAllProducts,
     searchProduct,
+    postData,
   };
   
   export default ProductService;

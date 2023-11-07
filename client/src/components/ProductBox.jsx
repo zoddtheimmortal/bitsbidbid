@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Timer from "../hooks/Timer";
 import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
+import ProductService from "../api/product.service";
+import UserService from "../api/user.service";
 
 const ProductBox = ({id}) => {
     const navigate=useNavigate();
@@ -13,14 +15,14 @@ const ProductBox = ({id}) => {
     const [userWithId,setUserWithID]=useState([]);
 
     const fetchProductData=async()=>{
-        const res=await axios.get(`http://localhost:8080/products/${id}`);
+        const res=await ProductService.fetchProductData(id);
         setProdData(res.data);
-        console.log(res.data);
+        // console.log(res.data);
     }
 
     const fetchUserData=async()=>{
-        const email=user.email;
-        const res=await axios.get(`http://localhost:8080/oauth2/user/find/${email}`);
+        const res=await UserService.fetchUserWithEmail(user.email);
+        // console.log(res.data);
         setUserWithID(res.data);
     }
 
@@ -52,8 +54,9 @@ const ProductBox = ({id}) => {
                     <div className="bg-con-blue grid gap-1 rounded-xl p-4">
                         <div className="text-2xl font-bold font-mono">Time Left:</div>
                         <Timer 
-                        deadline={prodData.dateCreated?prodData.dateCreated:"2023-12-31T23:40:48"}
+                        deadline={prodData.ends?prodData.ends:"2023-12-31T23:40:48"}
                         className="rounded-xl bg-royal-green"
+                        data={prodData}
                         />
                         <div className="font-mono">
                             <span className="font-bold">Bid End Date: </span>

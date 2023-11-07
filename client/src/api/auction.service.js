@@ -86,18 +86,18 @@ const buyAuctionListing = (id) => {
     return axios.put(API_URL + '/buy/' + id);
 }
 
-const updateAuction = (name, buy_Price, location, country, description, categories, latitude, longitude, id) => {
-    return axios.put(API_URL + '/update/'+ id , {
-        name,
-        buy_Price,
-        location,
-        country,
-        description,
-        categories,
-        latitude,
-        longitude
-      });
-};
+// const updateAuction = (name, buy_Price, location, country, description, categories, latitude, longitude, id) => {
+//     return axios.put(API_URL + '/update/'+ id , {
+//         name,
+//         buy_Price,
+//         location,
+//         country,
+//         description,
+//         categories,
+//         latitude,
+//         longitude
+//       });
+// };
 const KillAuctionListing = (id) => {
     return axios.put(API_URL + '/die/'+ id);
 };
@@ -108,19 +108,19 @@ const AuctionService = {
     addAuction,
     findAuctionById,
     deleteItemById,
-    updateAuction,
+    // updateAuction,
     getAllActiveItems,
     startAuction,
     getAllBids,
     addBid,
-    getAllActivePagedItems,
-    getAllCategories,
+    // getAllActivePagedItems
+    // getAllCategories,
     getAllImages,
     uploadPicture,
     KillAuctionListing,
     getWinnerOfAuction,
     buyAuctionListing,
-    getCoordinates,
+    // getCoordinates,
   };
   
   export default AuctionService;

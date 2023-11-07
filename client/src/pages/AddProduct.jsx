@@ -2,14 +2,14 @@ import axios from "axios";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import PillButton from "../components/PillButton";
+import ProductService from "../api/product.service";
 
 const AddProduct = () => {
     const [formData,setFormData]=useState({
         name:"",
         description:"",
-        maxBid:"",
         imgSrc:"",
-        price:0
+        max_bid:0,
     })
 
     const handleSubmit=(e)=>{
@@ -18,14 +18,16 @@ const AddProduct = () => {
     }
 
     const postData=async()=>{
-        try{
-            const config = { 'content-type': 'application/json' };
-            const res=await axios.post("http://localhost:8080/products/",formData,config);
-            console.log(res.data)
-            alert(`Product ${formData.name} Added`);
-        }catch(e){
-            console.log(e.response.data);
-        }
+        // try{
+        //     const config = { 'content-type': 'application/json' };
+        //     const res=await axios.post("http://localhost:8080/products/",formData,config);
+        //     console.log(res.data)
+        //     alert(`Product ${formData.name} Added`);
+        // }catch(e){
+        //     console.log(e.response.data);
+        // }
+        const res=await ProductService.postData(formData);
+        console.log(res.data);
     }
 
     return ( 

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import ProductPreview from "./ProductPreview";
 import ProductService from "../api/product.service";
 
@@ -20,7 +19,7 @@ const SearchBar = () => {
 
     const getDefaults=async()=>{
         const res=await ProductService.fetchAllProducts();
-        setSearchQ(test.data);
+        setSearchQ(res.data);
     }
 
     useEffect(()=>{
@@ -69,11 +68,11 @@ const SearchBar = () => {
                     <ProductPreview
                     key={item.uid}
                     name={item.name}
-                    maxBid={item.price}
+                    maxBid={item.currentPrice}
                     id={item.uid}
                     desc={item.description}
                     src={item.imgSrc}
-                    dateCreated={item.dateCreated}
+                    dateCreated={item.ends}
                     display={item.display}
                     />
                 )}

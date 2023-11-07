@@ -18,7 +18,7 @@ const ProductPreview = ({name,maxBid,time,src,id,desc,dateCreated,display}) => {
         <div className="grid grid-rows-1 gap-1">
             <div className="text-2xl font-bold">{name}</div>
             {/* placeholder time, will change with actual data */}
-            <Timer deadline={dateCreated?dateCreated:"2023-12-31T23:40:48"}/>
+            <Timer deadline={dateCreated?dateCreated:"2023-12-31T23:40:48"} id={id}/>
             <div className="font-mono">Max Bid: {maxBid}</div>
             <div className="font-mono text-sm">{desc}</div>
             <PillButton children="View Auction" 
