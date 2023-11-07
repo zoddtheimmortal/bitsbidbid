@@ -10,13 +10,13 @@ const HOUR=MINUTE*60;
 const DAY=HOUR*24;
 
 
-const Timer = ({ deadline = new Date().toString(), className,data}) => {
+const Timer = ({ deadline = new Date().toString(), className,id,active}) => {
     const parsedDeadline = useMemo(() => Date.parse(deadline), [deadline]);
     const [time, setTime] = useState(parsedDeadline - Date.now());
 
     const makeInactive=()=>{
         // console.log(id);
-        AuctionService.KillAuctionListing(data.id);
+        AuctionService.KillAuctionListing(id);
     }
 
     useEffect(() => {
@@ -47,7 +47,7 @@ const Timer = ({ deadline = new Date().toString(), className,data}) => {
              p-2 
              justify-items-center`
         ,className)}
-        >
+        >   
             {
             Object.entries({
                 days: time / DAY,

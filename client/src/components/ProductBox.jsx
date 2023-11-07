@@ -17,7 +17,7 @@ const ProductBox = ({id}) => {
     const fetchProductData=async()=>{
         const res=await ProductService.fetchProductData(id);
         setProdData(res.data);
-        // console.log(res.data);
+        console.log(res.data);
     }
 
     const fetchUserData=async()=>{
@@ -56,7 +56,8 @@ const ProductBox = ({id}) => {
                         <Timer 
                         deadline={prodData.ends?prodData.ends:"2023-12-31T23:40:48"}
                         className="rounded-xl bg-royal-green"
-                        data={prodData}
+                        id={id}
+                        active={prodData.active}
                         />
                         <div className="font-mono">
                             <span className="font-bold">Bid End Date: </span>
