@@ -35,10 +35,9 @@ const deleteItemById = (id) => {
 }
 
 // /bids/add/{item_id}/{user_id}
-const addBid = (amount, item_id, user_id, username) => {
+const addBid = (amount, item_id, user_id) => {
     return axios.post(API_URL + '/bids/add/' + item_id + '/' + user_id, {
-        amount,
-        username
+        amount
     });
 }
 
@@ -78,8 +77,8 @@ const uploadPicture = (id, file, onUploadProgress)  => {
     });
 }
 
-const startAuction = (id) => {
-    return axios.put(API_URL + '/start/' + id);
+const startAuction = (id,mins) => {
+    return axios.put(API_URL + '/start/' + id+"/"+mins);
 }
 
 const buyAuctionListing = (id) => {

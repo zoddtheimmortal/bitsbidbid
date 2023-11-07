@@ -3,31 +3,38 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import PillButton from "../components/PillButton";
 import ProductService from "../api/product.service";
+import UserService from "../api/user.service";
+import { useSelector } from "react-redux";
+import AuctionService from "../api/auction.service";
 
 const AddProduct = () => {
+    const user=useSelector((state) => state.user.user);
     const [formData,setFormData]=useState({
         name:"",
         description:"",
         imgSrc:"",
-        max_bid:0,
+        currentPrice:0,
+        userId:0,
     })
 
+    const [end,setEnd]=useState(0);
+
     const handleSubmit=(e)=>{
+        // console.log(user);
         e.preventDefault();
         postData();
     }
 
+    const setUserId=async()=>{
+        const idUser=await UserService.fetchUserWithEmail(user.email);
+        setFormData({...formData,userId:idUser.data.id});
+    }
+
     const postData=async()=>{
-        // try{
-        //     const config = { 'content-type': 'application/json' };
-        //     const res=await axios.post("http://localhost:8080/products/",formData,config);
-        //     console.log(res.data)
-        //     alert(`Product ${formData.name} Added`);
-        // }catch(e){
-        //     console.log(e.response.data);
-        // }
+        setUserId();
         const res=await ProductService.postData(formData);
         console.log(res.data);
+        const auc=await AuctionService.startAuction(res.data.uid,end);
     }
 
     return ( 
@@ -95,10 +102,10 @@ const AddProduct = () => {
                             ">
                                 <div className="grid grid-cols-2 gap-3">
                                     <div>
-                                    <span>Bid End Date: </span>
+                                    <span>Auction Time Span </span>
                                     </div>
                                     <input type="text" 
-                                    placeholder="Open Calender"
+                                    placeholder="Enter In Minutes"
                                     className="
                                     w-full
                                     p-2
@@ -109,6 +116,7 @@ const AddProduct = () => {
                                     border-gray-600
                                     placeholder:text-gray-600
                                     "
+                                    onChange={(e)=>setEnd(e.target.value)}
                                     />
                                     <div>
                                     <span>Starting Bid:</span> 
@@ -116,7 +124,7 @@ const AddProduct = () => {
                                     <div>
                                     <input type="text" 
                                     placeholder="Enter Starting Bid"
-                                    onChange={(e)=>setFormData({...formData,price:e.target.value})}
+                                    onChange={(e)=>setFormData({...formData,currentPrice:e.target.value})}
                                     className="
                                     w-full
                                     p-2

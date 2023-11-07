@@ -7,12 +7,14 @@ import Navbar from "./Navbar";
 import { useSelector } from "react-redux";
 import ProductService from "../api/product.service";
 import UserService from "../api/user.service";
+import AuctionService from "../api/auction.service";
 
 const ProductBox = ({id}) => {
     const navigate=useNavigate();
     const [prodData,setProdData]=useState([]);
     const user=useSelector((state) => state.user.user);
     const [userWithId,setUserWithID]=useState([]);
+    const [bidAmt,setBidAmt]=useState(0);
 
     const fetchProductData=async()=>{
         const res=await ProductService.fetchProductData(id);
@@ -31,8 +33,16 @@ const ProductBox = ({id}) => {
         fetchUserData();
     },[]);
 
-    const handleSubmit=()=>{
-        navigate("/search");
+    const placeBid=async()=>{
+        const res=await AuctionService.addBid(bidAmt,prodData.uid,userWithId.id);
+        // console.log(res.data);
+        alert(`Bid of ${bidAmt} placed for ${prodData.name}!`);
+    }
+
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        placeBid();
+        // navigate("/search");
     }
 
     return (
@@ -64,14 +74,15 @@ const ProductBox = ({id}) => {
                             <span>2023-12-31T23:59:59</span>
                         </div>
                         <div className="font-mono">
-                            <span className="font-bold">Starting Bid: </span>
-                            <span>{prodData.price}</span>   
+                            <span className="font-bold">Current Bid: </span>
+                            <span>{prodData.currentPrice}</span>   
                         </div>
                         <div>
                             <form action="" onSubmit={handleSubmit}>
                                 <div>
                                     <input type="text" placeholder="BC" 
                                     className="rounded-2xl p-2 px-3 bg-regal-blue border-gray-600 border-2 text-gray-400 placeholder:text-gray-500"
+                                    onChange={(e)=>setBidAmt(e.target.value)}
                                      />
                                 </div>
                                 <button type="submit"
