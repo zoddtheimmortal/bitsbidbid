@@ -10,12 +10,11 @@ const HOUR=MINUTE*60;
 const DAY=HOUR*24;
 
 
-const Timer = ({ deadline = new Date().toString(), className,id,active}) => {
+const Timer = ({ deadline = new Date().toString(), className,id}) => {
     const parsedDeadline = useMemo(() => Date.parse(deadline), [deadline]);
     const [time, setTime] = useState(parsedDeadline - Date.now());
 
     const makeInactive=()=>{
-        // console.log(id);
         AuctionService.KillAuctionListing(id);
     }
 

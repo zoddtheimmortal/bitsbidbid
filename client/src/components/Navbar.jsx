@@ -5,7 +5,7 @@ const Navbar = () => {
     const navigate=useNavigate();
 
     return ( 
-    <header className="bg-white dark:bg-regal-blue pb-2">
+    <header className="bg-white dark:bg-regal-blue pb-2 navbar">
     <div className="mx-auto max-w-screen px-4 sm:px-8 lg:px-12">
       <div className="flex h-16 items-end justify-between">
         <div className="flex-1 md:flex md:items-center md:gap-12">

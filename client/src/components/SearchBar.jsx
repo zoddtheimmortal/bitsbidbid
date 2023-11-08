@@ -73,7 +73,7 @@ const SearchBar = () => {
                     desc={item.description}
                     src={item.imgSrc}
                     dateCreated={item.ends}
-                    display={item.display}
+                    display={item.active}
                     />
                 )}
             </div>

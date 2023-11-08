@@ -7,16 +7,8 @@ import Navbar from "../components/Navbar";
 const ProductSearch = () => {
     const navigate=useNavigate();
 
-    const handleClick=()=>{
-        navigate("/dashboard")
-    }
-
-    const handleAdd=()=>{
-        navigate("/product/add")
-    }
-
     return(
-        <div>
+        <div className="px-2">
             <span>
                 <Navbar/>
                 <SearchBar/>

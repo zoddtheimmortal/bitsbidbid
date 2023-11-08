@@ -27,11 +27,13 @@ const AddProduct = () => {
 
     const setUserId=async()=>{
         const idUser=await UserService.fetchUserWithEmail(user.email);
+        // console.log(idUser.data);
         setFormData({...formData,userId:idUser.data.id});
     }
 
     const postData=async()=>{
         setUserId();
+        // console.log(formData);
         const res=await ProductService.postData(formData);
         console.log(res.data);
         const auc=await AuctionService.startAuction(res.data.uid,end);
@@ -102,7 +104,7 @@ const AddProduct = () => {
                             ">
                                 <div className="grid grid-cols-2 gap-3">
                                     <div>
-                                    <span>Auction Time Span </span>
+                                    <span>Auction Time Span:</span>
                                     </div>
                                     <input type="text" 
                                     placeholder="Enter In Minutes"
