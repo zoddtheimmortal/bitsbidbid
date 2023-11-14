@@ -44,5 +44,13 @@ public class ProductServiceImpl implements ProductService{
         return ResponseEntity.ok(results);
     }
 
+    @Override
+    public ProductModel getProduct(long uid){
+        try{
+            return productDao.findById(uid).get();
+        }catch (Exception err){
+            return null;
+        }
+    }
 
 }

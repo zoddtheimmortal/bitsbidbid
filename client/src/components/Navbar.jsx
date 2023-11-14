@@ -1,8 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import UserService from "../api/user.service";
 
 const Navbar = () => {
     const navigate=useNavigate();
+    const userWithoutId=useSelector((state)=>state.user.user);
+    // const [user,setUser]=useState([]);
+
+    // const fetchUserData=async()=>{
+    //   const res=await UserService.fetchUserWithEmail(userWithoutId.email);
+    //   // console.log(res.data);
+    //   setUser(res.data);
+    // }
+  
+    // useEffect(()=>{
+    //   fetchUserData();
+    // },[]);
 
     return ( 
     <header className="bg-white dark:bg-regal-blue pb-2 navbar">
@@ -39,7 +54,9 @@ const Navbar = () => {
               </li>
   
               <li>
-                <div><span className="font-semibold">Wallet: </span>{0} BC</div>
+                <div><span className="font-semibold">Wallet: </span>
+                {/* <span>{user.wallet.balance}</span> */}
+                </div>
               </li>
             </ul>
           </nav>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,10 @@ public class ProductController {
         return this.productService.searchProduct(query);
     }
 
-
+    @GetMapping("/{id}")
+    public ProductModel getProduct(@PathVariable long id){
+        return this.productService.getProduct(id);
+    }
     @PostMapping("/")
     public ProductModel addProduct(@RequestBody ProductModel product){
         return this.productService.addProduct(product);

@@ -1,4 +1,4 @@
-package com.springreactoauth2.server.chat;
+package com.springreactoauth2.server.chatBck.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.springreactoauth2.server.chat;
+package com.springreactoauth2.server.chatBck.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatMessageDTO {
-    private String userName;
+    private String email;
     private ZonedDateTime sentAt;
     private String message;
 }

@@ -30,7 +30,7 @@ const ProductBox = ({id}) => {
 
     const fetchUserData=async()=>{
         const res=await UserService.fetchUserWithEmail(user.email);
-        // console.log(res.data);
+        console.log(res.data);
         setUserWithID(res.data);
     }
 

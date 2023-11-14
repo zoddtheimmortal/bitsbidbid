@@ -1,9 +1,7 @@
-package com.example.auctionapp.websocketinterface;
+package com.springreactoauth2.server.chatBck.websocketinterface;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;

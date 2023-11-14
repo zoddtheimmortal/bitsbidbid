@@ -1,6 +1,6 @@
-package com.example.auctionapp;
+package com.springreactoauth2.server.chatBck.websocketinterface;
 
-import com.example.auctionapp.interceptors.TopicSubscriptionInterceptor;
+import com.springreactoauth2.server.chatBck.interceptors.TopicSubscriptionInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

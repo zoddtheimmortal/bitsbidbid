@@ -16,4 +16,7 @@ public interface ProductService {
     String deleteProduct(long l);
 
     ResponseEntity<?> searchProduct(String query);
+
+    ProductModel getProduct(long id);
+
 }

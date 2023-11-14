@@ -1,4 +1,4 @@
-package com.springreactoauth2.server.chat;
+package com.springreactoauth2.server.chatBck.model;
 
 import com.springreactoauth2.server.user.model.User;
 

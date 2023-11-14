@@ -63,6 +63,10 @@ public class UserService {
         return existingUser;
     }
 
+    public User findByMail(String email){
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
     private User verifyIDToken(String idToken) {
         try {
             GoogleIdToken idTokenObj = verifier.verify(idToken);
