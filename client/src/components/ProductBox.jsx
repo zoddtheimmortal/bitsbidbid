@@ -16,22 +16,29 @@ const ProductBox = ({id}) => {
     const [userWithId,setUserWithID]=useState([]);
     const [bidAmt,setBidAmt]=useState(0);
     const [winner,setWinner]=useState([]);
+    const [loading,setLoading]=useState(true);
 
     const fetchProductData=async()=>{
+        setLoading(true);
         const res=await ProductService.fetchProductData(id);
         setProdData(res.data);
+        setLoading(false);
         // console.log(res.data);
     }
 
     const fetchWinner=async()=>{
+        setLoading(true);
         const res=await AuctionService.getWinnerOfAuction(id);
         setWinner(res.data);
+        setLoading(false);
     }
 
     const fetchUserData=async()=>{
+        setLoading(true);
         const res=await UserService.fetchUserWithEmail(user.email);
         console.log(res.data);
         setUserWithID(res.data);
+        setLoading(false);
     }
 
     useEffect(()=>{
@@ -52,6 +59,8 @@ const ProductBox = ({id}) => {
         // navigate("/search");
     }
 
+if(loading) return(<>Loading...</>);
+else{
     if(!prodData.active){
         return (
             <div>
@@ -187,6 +196,7 @@ const ProductBox = ({id}) => {
         );
     }
     
+}
 }
  
 export default ProductBox;

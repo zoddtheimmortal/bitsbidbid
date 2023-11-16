@@ -16,6 +16,7 @@ const Timer = ({ deadline = new Date().toString(), className,id}) => {
 
     const makeInactive=()=>{
         AuctionService.KillAuctionListing(id);
+        AuctionService.getWinnerOfAuction(id);
     }
 
     useEffect(() => {
