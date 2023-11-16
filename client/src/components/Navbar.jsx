@@ -61,6 +61,7 @@ else{
               <li>
                 <div><span className="font-semibold">Wallet: </span>
                 <span>{user.wallet.balance} BC</span>
+                <span className="text-gray-400"> /{user.wallet.ghostBalance} BC</span>
                 </div>
               </li>
             </ul>
