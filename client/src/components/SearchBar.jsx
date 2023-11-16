@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductPreview from "./ProductPreview";
 import ProductService from "../api/product.service";
+import { useSelector } from "react-redux";
 
 const SearchBar = () => {
     const [input,setInput]=useState("");

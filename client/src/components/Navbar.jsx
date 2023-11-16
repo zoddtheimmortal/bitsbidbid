@@ -7,19 +7,24 @@ import UserService from "../api/user.service";
 const Navbar = () => {
     const navigate=useNavigate();
     const userWithoutId=useSelector((state)=>state.user.user);
-    // const [user,setUser]=useState([]);
+    const [user,setUser]=useState([]);
+    const [loading,setLoading]=useState(true);
 
-    // const fetchUserData=async()=>{
-    //   const res=await UserService.fetchUserWithEmail(userWithoutId.email);
-    //   // console.log(res.data);
-    //   setUser(res.data);
-    // }
+    const fetchUserData=async()=>{
+      setLoading(true);
+      const res=await UserService.fetchUserWithEmail(userWithoutId.email);
+      setLoading(false);
+      // console.log(res.data);
+      setUser(res.data);
+    }
   
-    // useEffect(()=>{
-    //   fetchUserData();
-    // },[]);
+    useEffect(()=>{
+      fetchUserData();
+    },[]);
 
-    return ( 
+if(loading) return(<div>Loading...</div>)
+else{
+  return ( 
     <header className="bg-white dark:bg-regal-blue pb-2 navbar">
     <div className="mx-auto max-w-screen px-4 sm:px-8 lg:px-12">
       <div className="flex h-16 items-end justify-between">
@@ -55,7 +60,7 @@ const Navbar = () => {
   
               <li>
                 <div><span className="font-semibold">Wallet: </span>
-                {/* <span>{user.wallet.balance}</span> */}
+                <span>{user.wallet.balance} BC</span>
                 </div>
               </li>
             </ul>
@@ -99,6 +104,7 @@ const Navbar = () => {
     </div>
   </header>
    );
+}
 }
  
 export default Navbar;
