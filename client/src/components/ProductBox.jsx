@@ -9,6 +9,8 @@ import ProductService from "../api/product.service";
 import UserService from "../api/user.service";
 import AuctionService from "../api/auction.service";
 import Inactive from "./Inactive";
+import PillButton from "./PillButton";
+import fetchChatHistory from "../hooks/useChatHistory";
 
 const ProductBox = ({id}) => {
     const [prodData,setProdData]=useState([]);
@@ -16,7 +18,10 @@ const ProductBox = ({id}) => {
     const [userWithId,setUserWithID]=useState([]);
     const [bidAmt,setBidAmt]=useState(0);
     const [winner,setWinner]=useState([]);
+    const [chat,setChat]=useState(false);
     const [loading,setLoading]=useState(true);
+
+    const navigate=useNavigate();
 
     const fetchProductData=async()=>{
         setLoading(true);
@@ -30,13 +35,16 @@ const ProductBox = ({id}) => {
         setLoading(true);
         const res=await AuctionService.getWinnerOfAuction(id);
         setWinner(res.data);
+        if(res.data.email===user.email){
+            setChat(true);
+        }
         setLoading(false);
     }
 
     const fetchUserData=async()=>{
         setLoading(true);
         const res=await UserService.fetchUserWithEmail(user.email);
-        console.log(res.data);
+        // console.log(res.data);
         setUserWithID(res.data);
         setLoading(false);
     }
@@ -46,6 +54,24 @@ const ProductBox = ({id}) => {
         fetchUserData();
         fetchWinner();
     },[]);
+
+    const handleChatWithUser=()=>{
+        // const res=await fetchChatHistoryUsers();
+        // console.log(res);
+        navigate(`/chat?userId=${prodData.userId}`);
+    }
+
+    const ChatBtn=(flag)=>{
+        if(chat||flag.flag){
+            return(
+                <PillButton className={"py-2 px-6 rounded-2xl"} 
+                onClick={handleChatWithUser}>
+                    Chat With Seller
+                </PillButton>
+            )
+        }
+        else return(<></>);
+    };
 
     const placeBid=async()=>{
         const res=await AuctionService.addBid(bidAmt,prodData.uid,userWithId.id);
@@ -120,6 +146,7 @@ else{
                                     >
                                         Place Bid
                                     </button>
+                                    <ChatBtn flag={false}/>
                                 </form>
                             </div>
                         </div>
@@ -187,6 +214,7 @@ else{
                                     >
                                         Place Bid
                                     </button>
+                                    <ChatBtn flag={true}/>
                                 </form>
                             </div>
                         </div>

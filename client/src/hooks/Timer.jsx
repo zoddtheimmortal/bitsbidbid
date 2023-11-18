@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
@@ -12,12 +12,13 @@ const DAY=HOUR*24;
 
 const Timer = ({ deadline = new Date().toString(), className,id}) => {
     const parsedDeadline = useMemo(() => Date.parse(deadline), [deadline]);
+    const [init,setInit]=useState(false);
     const [time, setTime] = useState(parsedDeadline - Date.now());
 
-    const makeInactive=()=>{
+    const makeInactive=useCallback(()=>{
         AuctionService.KillAuctionListing(id);
         AuctionService.getWinnerOfAuction(id);
-    }
+    })
 
     useEffect(() => {
         const interval = setInterval(
@@ -26,8 +27,11 @@ const Timer = ({ deadline = new Date().toString(), className,id}) => {
                     setTime(parsedDeadline - Date.now());
                 }
                 else{
-                    makeInactive();
-                    clearInterval(interval);
+                    if(!init){
+                        setInit(true);
+                        makeInactive();
+                        clearInterval(interval);
+                    }
                 }
             }
             ,
@@ -35,7 +39,7 @@ const Timer = ({ deadline = new Date().toString(), className,id}) => {
         );
 
         return () => clearInterval(interval);
-    }, [parsedDeadline]);
+    }, [parsedDeadline,makeInactive]);
 
     return (
         <div 
