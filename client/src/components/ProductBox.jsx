@@ -58,7 +58,7 @@ const ProductBox = ({id}) => {
     const handleChatWithUser=()=>{
         // const res=await fetchChatHistoryUsers();
         // console.log(res);
-        navigate(`/chat?userId=${prodData.userId}`);
+        navigate(`/chat/${userWithId.id}/${prodData.uid}`);
     }
 
     const ChatBtn=(flag)=>{

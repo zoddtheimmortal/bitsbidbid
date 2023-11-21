@@ -27,11 +27,22 @@ const postData=async(formData)=>{
     }
 }
 
+const fetchSellerDetails=async(prodId,userId)=>{
+    const name=await axios.get(API_URL+`/sellerName/${prodId}/${userId}`);
+    const pic=await axios.get(API_URL+`/sellerPic/${prodId}/${userId}`);
+
+    return({
+        name:name.data,
+        pfp:pic.data,
+    });
+}
+
 const ProductService = {
     fetchProductData,
     fetchAllProducts,
     searchProduct,
     postData,
+    fetchSellerDetails,
   };
   
   export default ProductService;
