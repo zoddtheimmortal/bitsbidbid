@@ -5,6 +5,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import ProductSearch from "./pages/ProductSearch";
 import Product from "./pages/Product";
 import AddProduct from "./pages/AddProduct";
+import Chat from "./chat/Chat";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path:"/product/:id",
     element:<Product/>
+  },
+  {
+    path:"/chat/:userid/:prodid",
+    element: <Chat/>
   },
   {
     path:"/product/add",

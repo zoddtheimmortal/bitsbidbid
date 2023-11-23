@@ -3,7 +3,6 @@ package com.springreactoauth2.server.wallet.service;
 import com.springreactoauth2.server.wallet.model.Wallet;
 import com.springreactoauth2.server.wallet.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
