@@ -37,12 +37,24 @@ const fetchSellerDetails=async(prodId,userId)=>{
     });
 }
 
+const fetchMyListings=async(userId)=>{
+    const res=await axios.get(API_URL+`/seller/all/${userId}`);
+    return res;
+}
+
+const fetchMyPurchases=async(userId)=>{
+    const res=await axios.get(API_URL+`/buyer/all/${userId}`);
+    return res;
+}
+
 const ProductService = {
     fetchProductData,
     fetchAllProducts,
     searchProduct,
     postData,
     fetchSellerDetails,
+    fetchMyPurchases,
+    fetchMyListings,
   };
   
   export default ProductService;

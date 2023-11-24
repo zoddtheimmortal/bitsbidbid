@@ -74,6 +74,7 @@ const ChatBox = ({userId,prodId}) => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         postMessage();
+        setMessage("");
     }
 
 

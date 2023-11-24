@@ -20,14 +20,31 @@ const ProductBox = ({id}) => {
     const [winner,setWinner]=useState([]);
     const [chat,setChat]=useState(false);
     const [loading,setLoading]=useState(true);
+    const [init,setInit]=useState(false);
 
     const navigate=useNavigate();
 
+    useEffect(()=>{
+        if(init){
+            const interval = setInterval(
+                () =>{
+                    fetchProductData();
+                    // console.log("polling");
+                }
+                ,
+                1000,
+            );
+    
+            return () => clearInterval(interval);
+        }
+    })
+
     const fetchProductData=async()=>{
-        setLoading(true);
+        if(!init) setLoading(true);
         const res=await ProductService.fetchProductData(id);
         setProdData(res.data);
-        setLoading(false);
+        if(!init) setLoading(false);
+        setInit(true);
         // console.log(res.data);
     }
 

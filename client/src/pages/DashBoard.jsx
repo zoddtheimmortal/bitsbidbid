@@ -5,6 +5,7 @@ import PillButton from "../components/PillButton";
 import Navbar from "../components/Navbar";
 import UserService from "../api/user.service";
 import WalletService from "../api/wallet.service";
+import ProductService from "../api/product.service";
 
 export default function DashBoard() {
 
@@ -12,14 +13,37 @@ export default function DashBoard() {
   const [user,setUser]=useState([]);
   const [loading,setLoading]=useState(true);
   const [seen,setSeen]=useState(false);
+  const [togglePane,setTogglePane]=useState(1);
+  const [listings,setListings]=useState([]);
+  const [purchases,setPurchases]=useState([]);
+
+  const navigate=useNavigate();
 
   const togglePop=()=>{
     setSeen(!seen);
+  }
+  
+  const fetchMyProducts=async(userId)=>{
+    setLoading(true);
+    const res=await ProductService.fetchMyListings(userId);
+    setListings(res.data);
+    // console.log(res.data);
+    setLoading(false);
+  }
+
+  const fetchMyPurchases=async(userId)=>{
+    setLoading(true);
+    const res=await ProductService.fetchMyPurchases(userId);
+    setPurchases(res.data);
+    // console.log(res.data);
+    setLoading(false);
   }
 
   const fetchUserData=async()=>{
     setLoading(true);
     const res=await UserService.fetchUserWithEmail(userWithoutId.email);
+    await fetchMyProducts(res.data.id);
+    await fetchMyPurchases(res.data.id);
     setLoading(false);
     // console.log(res.data);
     setUser(res.data);
@@ -30,6 +54,10 @@ export default function DashBoard() {
     const res=await WalletService.addBalance(balance,user.id);
     setUser(res.data);
     setLoading(false);
+  }
+
+  const handleProductRedir=(prodId)=>{
+    navigate(`/product/${prodId}`);
   }
 
   const Popup=()=>{
@@ -69,6 +97,52 @@ export default function DashBoard() {
     )
   }
 
+  const DisplayProducts=()=>{
+    if(togglePane==1 && !(listings.length==0)){
+      return(
+        listings.map((item)=>{
+          return(
+            <div key={item.uid} className="
+            mx-1
+            w-3/4
+            bg-con-blue
+            rounded-2xl
+            border
+            border-gray-700
+            p-4
+            ">
+              <div className="flex gap-6 justify-items-start">
+                <div>
+                  <img src={item.imgSrc} className="object-cover h-36 w-36 rounded-full" alt="" />
+                </div>
+                <div>
+                  <div className="font-semibold text-2xl">
+                    {item.name}
+                  </div>
+                  <div className="text-gray-300">
+                    {item.description}
+                  </div>
+                  <div>
+                    <PillButton className={"mt-3 py-2 px-8 bg-regal-blue border border-gray-600 text-gray-600 hover:text-gray-500"}
+                    >Enter Chat</PillButton>
+                  </div>
+                  <div>
+                  <PillButton className={"py-2 px-8 bg-gray-800 border-2 border-black text-black hover:text-gray-500"}
+                  onClick={()=>handleProductRedir(item.uid)}
+                    >View Product</PillButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      )
+    }
+    else{
+      <>Hello 2</>
+    }
+  }
+
   useEffect(()=>{
     fetchUserData();
 
@@ -78,6 +152,7 @@ export default function DashBoard() {
   else{
     return (
       <div>
+        <div>
         <div>
         <Navbar/>
         {seen?<Popup/>:null}
@@ -111,10 +186,20 @@ export default function DashBoard() {
                   className={"py-2 px-8 bg-regal-blue border border-gray-600 text-gray-600 hover:text-gray-500"}
                   onClick={togglePop}
                   />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <div className="selector">
+          <div className="m-2 mx-4 text-2xl">
+            <span className="font-semibold">My Products </span>
+            <span className="text-gray-400">My Purchases</span>
+          </div>
         </div>
-        </div>
+        <div className="grid grid-cols-1 m-2 gap-2">
+          <DisplayProducts/>
         </div>
       </div>
     );
