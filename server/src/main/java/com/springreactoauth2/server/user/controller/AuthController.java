@@ -4,12 +4,12 @@ import com.springreactoauth2.server.user.model.User;
 import com.springreactoauth2.server.user.service.UserService;
 import com.google.common.net.HttpHeaders;
 import com.springreactoauth2.server.user.dto.IdTokenRequestDto;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 
 import static com.springreactoauth2.server.user.dto.UserDto.convertToDto;
@@ -23,7 +23,7 @@ public class AuthController {
 
     //handles google authentication callback
     @PostMapping("/login")
-    public ResponseEntity LoginWithGoogleOauth2(@RequestBody IdTokenRequestDto requestBody, HttpServletResponse response) {
+    public ResponseEntity<?> LoginWithGoogleOauth2(@RequestBody IdTokenRequestDto requestBody, HttpServletResponse response) {
         String authToken = userService.loginOAuthGoogle(requestBody);
         final ResponseCookie cookie = ResponseCookie.from("AUTH-TOKEN", authToken)
                 .httpOnly(true)
@@ -36,8 +36,13 @@ public class AuthController {
     }
 
     @GetMapping("/user/info")
-    public ResponseEntity getUserInfo(Principal principal) {
+    public ResponseEntity<?> getUserInfo(Principal principal) {
         User user = userService.getUser(Long.valueOf(principal.getName()));
         return ResponseEntity.ok().body(convertToDto(user));
+    }
+
+    @GetMapping("/user/find/{email}")
+    public User findByMail(@PathVariable String email){
+        return userService.findByMail(email);
     }
 }
