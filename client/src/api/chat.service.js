@@ -12,6 +12,11 @@ const getChatHistory=async(user1,user2,prodId)=>{
     return res;
 }
 
+const getChatList=async(prodId,userId)=>{
+    const res=axios.get(API_URL+`/list/${prodId}/${userId}`);
+    return res;
+}
+
 const sendMessage=async(messageData)=>{
     try{
         const config = { 'content-type': 'application/json' };
@@ -26,6 +31,7 @@ const ChatService = {
     sendMessage,
     getChatHistory,
     getAllMessages,
+    getChatList,
   };
   
 export default ChatService;
