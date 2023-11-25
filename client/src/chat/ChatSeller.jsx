@@ -3,7 +3,7 @@ import ProductService from "../api/product.service";
 import Navbar from "../components/Navbar";
 import ChatService from "../api/chat.service";
 
-const ChatBox = ({userId,prodId}) => {
+const ChatSeller = ({buyerId,sellerId,prodId}) => {
     const [loading,setLoading]=useState(true);
     const [fetching,setFetching]=useState(true);
     const [sellerDetails,setSellerDetails]=useState({
@@ -17,14 +17,14 @@ const ChatBox = ({userId,prodId}) => {
 
     useEffect(()=>{
         fetchProdData();
-        fetchSellerDetails(prodId,userId);
+        fetchBuyerDetails();
     },[]);
 
     useEffect(()=>{
         if(init){
             const interval = setInterval(
                 () =>{
-                    getHistory(prodData.uid,prodData.userId);
+                    getHistory(prodData.uid,sellerId);
                 }
                 ,
                 1000,
@@ -39,14 +39,14 @@ const ChatBox = ({userId,prodId}) => {
         const res=await ProductService.fetchProductData(prodId);
         // console.log(res.data);
         setProdData(res.data);
-        await getHistory(res.data.uid,res.data.userId);
+        await getHistory(res.data.uid,sellerId);
         setInit(true);
         setLoading(false);
     }
 
-    const fetchSellerDetails=async()=>{
+    const fetchBuyerDetails=async()=>{
         setLoading(true);
-        const res=await ProductService.fetchSellerDetails(prodId,userId);
+        const res=await ProductService.fetchBuyerDetails(prodId,buyerId);
         // console.log(res);
         setSellerDetails(res);
         setLoading(false);
@@ -54,8 +54,8 @@ const ChatBox = ({userId,prodId}) => {
 
     const postMessage=async()=>{
         const data={
-            sentBy:userId,
-            sentTo:prodData.userId,
+            sentBy:sellerId,
+            sentTo:buyerId,
             prodId:prodId,
             message:message
         }
@@ -65,7 +65,7 @@ const ChatBox = ({userId,prodId}) => {
 
     const getHistory=async(prodId,sellerId)=>{
         // setLoading(true);
-        const response=await ChatService.getChatHistory(userId,sellerId,prodId);
+        const response=await ChatService.getChatHistory(buyerId,sellerId,prodId);
         setChatHistory(response.data);
         // console.log(response.data);
         // setLoading(false);
@@ -114,7 +114,7 @@ const ChatBox = ({userId,prodId}) => {
                                     return(<>Loading...</>);
                                 }
                                 else{
-                                    if(chat.sentBy==userId){
+                                    if(chat.sentBy==sellerId){
                                         return(
                                             <div className="">
                                                 <div className="
@@ -211,4 +211,4 @@ const ChatBox = ({userId,prodId}) => {
     }
 }
  
-export default ChatBox;
+export default ChatSeller;

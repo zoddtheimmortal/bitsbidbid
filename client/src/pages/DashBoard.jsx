@@ -60,6 +60,10 @@ export default function DashBoard() {
     navigate(`/product/${prodId}`);
   }
 
+  const handleChatRedir=(prodId,userId)=>{
+    navigate(`/chat/list/${userId}/${prodId}`)
+  }
+
   const Popup=()=>{
     const [balance,setBalance]=useState(0);
 
@@ -124,6 +128,7 @@ export default function DashBoard() {
                   </div>
                   <div>
                     <PillButton className={"mt-3 py-2 px-8 bg-regal-blue border border-gray-600 text-gray-600 hover:text-gray-500"}
+                    onClick={()=>handleChatRedir(item.uid,user.id)}
                     >Enter Chat</PillButton>
                   </div>
                   <div>
