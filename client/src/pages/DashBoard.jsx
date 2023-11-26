@@ -108,7 +108,8 @@ export default function DashBoard() {
           return(
             <div key={item.uid} className="
             mx-1
-            w-3/4
+            w-full
+            md:w-3/4
             bg-con-blue
             rounded-2xl
             border
@@ -200,7 +201,7 @@ export default function DashBoard() {
         <div className="selector">
           <div className="m-2 mx-4 text-2xl">
             <span className="font-semibold">My Products </span>
-            <span className="text-gray-400">My Purchases</span>
+            {/* <span className="text-gray-400">My Purchases</span> */}
           </div>
         </div>
         <div className="grid grid-cols-1 m-2 gap-2">

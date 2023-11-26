@@ -71,6 +71,12 @@ else{
             <div className="sm:flex sm:gap-4">
               <div className="hidden sm:flex">
                 <div
+                  className="rounded-md bg-gray-100 mx-2 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                  onClick={()=>navigate("/")}
+                >
+                  Log Out
+                </div>
+                <div
                   className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
                   onClick={()=>navigate("/dashboard")}
                 >

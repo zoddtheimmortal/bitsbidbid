@@ -51,7 +51,7 @@ const AddProduct = () => {
         return ( 
             <div>
                 <Navbar></Navbar>
-                <div className="font-mono">
+                <div className="font-mono mx-2">
                     <form action="" onSubmit={handleSubmit}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                             <div>
