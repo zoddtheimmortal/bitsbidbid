@@ -184,8 +184,8 @@ export default function DashBoard() {
           </div>
           <div>
             <span className="font-semibold">Wallet Balance: </span>
-            <span className="font-semibold">{user.wallet.balance} BC  </span>
-            <span className="text-gray-400">/ {user.wallet.ghostBalance} BC</span>
+            <span className="font-semibold">{user.wallet.balance} ₹  </span>
+            <span className="text-gray-400">/ {user.wallet.ghostBalance} ₹</span>
           </div>
           <div>
           <PillButton children="Add Balance" 

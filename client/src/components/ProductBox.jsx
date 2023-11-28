@@ -134,7 +134,7 @@ else{
                             <Inactive styles="rounded-xl"/>
                             <div className="font-mono">
                                 <span className="font-bold">Current Bid: </span>
-                                <span>{prodData.currentPrice}</span>   
+                                <span>{prodData.currentPrice>0?prodData.currentPrice:prodData.buyPrice}</span>   
                             </div>
                             <div className="font-mono">
                                 <span className="font-bold text-green-400">Winner: </span>

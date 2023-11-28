@@ -19,4 +19,5 @@ public interface ProductService {
 
     ProductModel getProduct(long id);
 
+    ResponseEntity<?> fuzzyMatch(String query);
 }

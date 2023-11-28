@@ -31,6 +31,7 @@ public class ProductModel {
     private boolean boughtFlag;
     private boolean hasImages;
     private boolean hasBids;
+    private Long soldTo;
     Timestamp Started;
     Timestamp Ends;
 
