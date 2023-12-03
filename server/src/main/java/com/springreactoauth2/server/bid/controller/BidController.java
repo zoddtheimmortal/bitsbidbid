@@ -160,7 +160,7 @@ public class BidController {
         ProductModel item = productDao.findById(id).get();
         Date ends_stamp = new Date(item.getEnds().getTime());
         Date now = new Date();
-        if(now.after(ends_stamp)) {
+        if(true) {
             item.setActive(false);
             productDao.save(item);
             List<Bid> allBids=bidRepository.findByItemId(id);
