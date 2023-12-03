@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { all } from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ const ProductBox = ({id}) => {
     const [chat,setChat]=useState(false);
     const [loading,setLoading]=useState(true);
     const [init,setInit]=useState(false);
+    const [isSeller,setIsSeller]=useState(false);
 
     const navigate=useNavigate();
 
@@ -63,7 +64,14 @@ const ProductBox = ({id}) => {
         const res=await UserService.fetchUserWithEmail(user.email);
         // console.log(res.data);
         setUserWithID(res.data);
+        allowBid();
         setLoading(false);
+    }
+
+    const allowBid=()=>{
+        if(userWithId.id==prodData.userId){
+            setIsSeller(false);
+        }
     }
 
     useEffect(()=>{
@@ -104,7 +112,7 @@ const ProductBox = ({id}) => {
 
 if(loading) return(<>Loading...</>);
 else{
-    if(!prodData.active){
+    if(!prodData.active || isSeller){
         return (
             <div>
                 <Navbar></Navbar>
@@ -126,7 +134,7 @@ else{
                             <Inactive styles="rounded-xl"/>
                             <div className="font-mono">
                                 <span className="font-bold">Current Bid: </span>
-                                <span>{prodData.currentPrice}</span>   
+                                <span>{prodData.currentPrice>0?prodData.currentPrice:prodData.buyPrice}</span>   
                             </div>
                             <div className="font-mono">
                                 <span className="font-bold text-green-400">Winner: </span>

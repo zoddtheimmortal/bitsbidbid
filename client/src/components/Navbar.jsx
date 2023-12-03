@@ -60,8 +60,8 @@ else{
   
               <li>
                 <div><span className="font-semibold">Wallet: </span>
-                <span>{user.wallet.balance} BC</span>
-                <span className="text-gray-400"> /{user.wallet.ghostBalance} BC</span>
+                <span>{user.wallet.balance} ₹</span>
+                <span className="text-gray-400"> /{user.wallet.ghostBalance} ₹</span>
                 </div>
               </li>
             </ul>
@@ -70,6 +70,12 @@ else{
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
               <div className="hidden sm:flex">
+                <div
+                  className="rounded-md bg-gray-100 mx-2 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                  onClick={()=>navigate("/")}
+                >
+                  Log Out
+                </div>
                 <div
                   className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
                   onClick={()=>navigate("/dashboard")}

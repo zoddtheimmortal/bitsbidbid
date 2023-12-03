@@ -3,7 +3,7 @@ import PillButton from "./PillButton";
 import Timer from "../hooks/Timer";
 import Inactive from "./Inactive";
 
-const ProductPreview = ({name,maxBid,time,src,id,desc,dateCreated,display}) => {
+const ProductPreview = ({name,maxBid,time,src,id,desc,dateCreated,display,buyPrice}) => {
     const navigate=useNavigate();
 
     const handleClick=(id)=>{
@@ -42,7 +42,7 @@ const ProductPreview = ({name,maxBid,time,src,id,desc,dateCreated,display}) => {
                 <div className="text-2xl font-bold">{name}</div>
                 {/* placeholder time, will change with actual data */}
                 <Inactive/>
-                <div className="font-mono">Max Bid: {maxBid}</div>
+                <div className="font-mono">Max Bid: {maxBid>0?maxBid:buyPrice}</div>
                 <div className="font-mono text-sm">{desc}</div>
                 <PillButton children="View Auction" 
                 onClick={()=>handleClick(id)}

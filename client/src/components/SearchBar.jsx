@@ -10,7 +10,7 @@ const SearchBar = () => {
     const [loading,setLoading]=useState(true);
 
     const fetchData=async(value)=>{
-        const res=await ProductService.searchProduct(value);
+        const res=await ProductService.fuzzyMatch(value);
         setSearchQ(res.data);
     }
 
@@ -83,6 +83,7 @@ const SearchBar = () => {
                         src={item.imgSrc}
                         dateCreated={item.ends}
                         display={item.active}
+                        buyPrice={item.buyPrice}
                         />
                     )}
                 </div>

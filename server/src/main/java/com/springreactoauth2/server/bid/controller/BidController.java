@@ -62,8 +62,13 @@ public class BidController {
                 }
             }
 //            System.out.println(maxBid.getUser().getEmail());
-            Optional<User> winner=userRepository.findByEmail(maxBid.getUser().getEmail());
-            return new ResponseEntity<>(winner,HttpStatus.OK);
+            User winner=userRepository.findByEmail(maxBid.getUser().getEmail()).orElse(null);
+            if(winner!=null){
+                return new ResponseEntity<>(winner,HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -105,20 +110,49 @@ public class BidController {
 
     //Post Requests
     @PostMapping("/bids/add/{item_id}/{user_id}")
-    public ResponseEntity<Bid> addBid(@RequestBody Bid bid, @PathVariable("user_id") Long user_id, @PathVariable("item_id") Long item_id) {
+    public ResponseEntity<?> addBid(@RequestBody Bid bid, @PathVariable("user_id") Long user_id, @PathVariable("item_id") Long item_id) {
         // from now on item has bids!
         ProductModel item = productDao.findById(item_id).get();
         item.setHasBids(true);
+        User user=userRepository.findById(user_id).orElse(null);
+        if(user!=null){
+            long balance= (long) user.getWallet().getBalance();
+            long maxBid=0;
+            List<Bid> allBids=getAllBids(item_id).getBody();
+            for(Bid prevBid:allBids){
+                if(prevBid.getUser_id()==user_id){
+                    if(prevBid.getAmount()>maxBid) maxBid=prevBid.getAmount();
+                }
+            }
+            if(maxBid<bid.getAmount() && bid.getAmount()>item.getBuyPrice()){
+                user.getWallet().setBalance(balance+maxBid);
+                user.getWallet().setGhostBalance(user.getWallet().getGhostBalance()-maxBid);
+                balance=(long) user.getWallet().getBalance();
 
-        bid.setId(new Random().nextLong());
-        Timestamp time = new Timestamp(System.currentTimeMillis());
-        Bid newBid = new Bid(bid.getId(), item_id, user_id, time, bid.getAmount(), bid.getEmail());
-        bidRepository.save(newBid);
-        //updating current highest bid in auction
-        if(item.getCurrentPrice() < bid.getAmount()) item.setCurrentPrice(bid.getAmount());
-        item.setNumberOfBids(item.getNumberOfBids() + 1); // one more bid is added to the auction lisitng
-        productDao.save(item);
-        return new ResponseEntity<>(bid, HttpStatus.OK);
+                if(balance>= bid.getAmount()){
+                    bid.setId(new Random().nextLong());
+                    Timestamp time = new Timestamp(System.currentTimeMillis());
+                    Bid newBid = new Bid(bid.getId(), item_id, user_id, time, bid.getAmount(), bid.getEmail());
+                    user.getWallet().setBalance(balance- bid.getAmount());
+                    user.getWallet().setGhostBalance(user.getWallet().getGhostBalance()+bid.getAmount());
+                    bidRepository.save(newBid);
+                    //updating current highest bid in auction
+                    if(item.getCurrentPrice() < bid.getAmount()) item.setCurrentPrice(bid.getAmount());
+                    item.setNumberOfBids(item.getNumberOfBids() + 1); // one more bid is added to the auction lisitng
+                    productDao.save(item);
+                    return new ResponseEntity<>(bid, HttpStatus.OK);
+                }
+                else{
+                    return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+                }
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/die/{id}")
@@ -126,9 +160,57 @@ public class BidController {
         ProductModel item = productDao.findById(id).get();
         Date ends_stamp = new Date(item.getEnds().getTime());
         Date now = new Date();
-        if(now.after(ends_stamp)) {
+        if(true) {
             item.setActive(false);
             productDao.save(item);
+            List<Bid> allBids=bidRepository.findByItemId(id);
+            if(allBids!=null){
+                Bid maxBid=new Bid();
+                long max=-1;
+                HashMap<Long,Long> prevAmt=new HashMap<>();
+                System.out.println(allBids);
+                for (Bid allBid : allBids) {
+                    if (max < allBid.getAmount()) {
+                        max = allBid.getAmount();
+                        maxBid = allBid;
+                    }
+                    if(prevAmt.get(allBid.getUser_id())!=null){
+                        if(prevAmt.get(allBid.getUser_id())<allBid.getAmount()){
+                            System.out.println(allBid.getAmount());
+                            prevAmt.put(allBid.getUser_id(),allBid.getAmount());
+                        }
+                    }
+                    else{
+                        prevAmt.put(allBid.getUser_id(),(long)0);
+                        if(prevAmt.get(allBid.getUser_id())<allBid.getAmount()){
+                            System.out.println(allBid.getAmount());
+                            prevAmt.put(allBid.getUser_id(),allBid.getAmount());
+                        }
+                    }
+                }
+                System.out.println(prevAmt);
+                User winner=userRepository.findByEmail(maxBid.getUser().getEmail()).orElse(null);
+                User seller=userRepository.findById(item.getUserId()).orElse(null);
+                if(winner!=null){
+                    Set<Long> idSet=prevAmt.keySet();
+                    for(Long ids:idSet){
+                        User user=userRepository.findById(ids).orElse(null);
+                        if(user!=null && !Objects.equals(user.getId(), winner.getId())){
+                            System.out.println(ids+" "+prevAmt.get(ids));
+                            user.getWallet().setBalance(user.getWallet().getBalance()+prevAmt.get(ids));
+                            user.getWallet().setGhostBalance(user.getWallet().getGhostBalance()-prevAmt.get(ids));
+                            userRepository.save(user);
+                        }
+                    }
+                    item.setBoughtFlag(true);
+                    item.setSoldTo(winner.getId());
+                    productDao.save(item);
+                    winner.getWallet().setGhostBalance(winner.getWallet().getGhostBalance()-maxBid.getAmount());
+                    assert seller != null;
+                    seller.getWallet().setBalance(seller.getWallet().getBalance()+maxBid.getAmount());
+                    userRepository.save(winner);
+                }
+            }
         }
 
         return new ResponseEntity<>(item, HttpStatus.OK);

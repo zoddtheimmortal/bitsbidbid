@@ -16,6 +16,11 @@ const searchProduct=async(value)=>{
     return res;
 }
 
+const fuzzyMatch=async(value)=>{
+    const res=await axios.get(API_URL+`/fuzzyFind?query=${value}`)
+    return res;
+}
+
 const postData=async(formData)=>{
     try{
         const config = { 'content-type': 'application/json' };
@@ -66,6 +71,7 @@ const ProductService = {
     fetchMyPurchases,
     fetchMyListings,
     fetchBuyerDetails,
+    fuzzyMatch,
   };
   
   export default ProductService;

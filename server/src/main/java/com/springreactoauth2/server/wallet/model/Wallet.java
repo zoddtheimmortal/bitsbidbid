@@ -1,7 +1,6 @@
 package com.springreactoauth2.server.wallet.model;
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,20 +8,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Data
 public class Wallet {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
     private double balance;
+    private double ghostBalance;
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public void setBalance(double balance) {
+    public Wallet(double balance) {
         this.balance = balance;
+        this.ghostBalance=0;
     }
-// Add getters and setters
 }

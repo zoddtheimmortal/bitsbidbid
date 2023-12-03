@@ -37,7 +37,6 @@ const ChatSeller = ({buyerId,sellerId,prodId}) => {
     const fetchProdData=async()=>{
         setLoading(true);
         const res=await ProductService.fetchProductData(prodId);
-        // console.log(res.data);
         setProdData(res.data);
         await getHistory(res.data.uid,sellerId);
         setInit(true);
@@ -47,7 +46,6 @@ const ChatSeller = ({buyerId,sellerId,prodId}) => {
     const fetchBuyerDetails=async()=>{
         setLoading(true);
         const res=await ProductService.fetchBuyerDetails(prodId,buyerId);
-        // console.log(res);
         setSellerDetails(res);
         setLoading(false);
     }
@@ -64,11 +62,8 @@ const ChatSeller = ({buyerId,sellerId,prodId}) => {
     }
 
     const getHistory=async(prodId,sellerId)=>{
-        // setLoading(true);
         const response=await ChatService.getChatHistory(buyerId,sellerId,prodId);
         setChatHistory(response.data);
-        // console.log(response.data);
-        // setLoading(false);
     }
 
     const handleSubmit=(e)=>{
